@@ -1,0 +1,60 @@
+name: deploy
+permissions:
+  id-token: write # required to use OIDC authentication
+  contents: read # required to checkout the code from the repo
+
+#when a push is made to any of these directories
+on:
+  push:
+    branches: [ "main" ]
+
+#list AWS region
+env:
+  AWS_REGION: us-east-1
+
+#specifies what to do. first we explain what hardware to run the job on. then we specify the jobs to be ran.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone
+      uses: actions/checkout@v2
+
+      #gain access to AWS
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+       role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
+       role-duration-seconds: 900 # the ttl of the session, in seconds.
+       aws-region: us-east-1
+      #setup and build hugo w/ github action
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v2
+
+    - name: Build with Hugo
+      run: hugo --minify
+    
+    - name: Deploy static site to S3 bucket
+      run: |
+        cd public
+        aws s3 sync \
+          --delete \
+          . s3://jamikal.xyz
+    - name: Cloudfront invalidation
+      run: |
+        aws cloudfront create-invalidation \
+          --distribution-id ${{ secrets.CLOUDFRONT_ID }} \
+          --paths "/" \
+          "/index.html" \
+          "/posts/" \
+          "/posts/index.html" \
+          "/tags/" \
+          "/tags/index.html"
+Footer
+© 2023 GitHub, Inc.
+Footer navigation
+
+    Terms
+    Privacy
+    Security
