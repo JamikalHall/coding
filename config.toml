@@ -1,0 +1,4 @@
+baseURL = 'https:/jamikal.xyz'
+languageCode = 'en-us'
+title = 'Jamikal Hall'
+theme = 'paper'
