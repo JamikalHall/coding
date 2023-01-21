@@ -1,4 +1,4 @@
-baseURL = 'https:/jamikal.xyz'
+baseURL = '/'
 languageCode = 'en-us'
 title = "Jamikal Hall's Playground'"
 theme = 'paper'
