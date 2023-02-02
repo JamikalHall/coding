@@ -1,7 +1,7 @@
 ---
 title: "Building a CI/CD Pipeline with Hugo"
 date: 2023-01-20T10:23:27-06:00
-draft: true
+draft: false
 tags: 
   - AWS 
   - DevOps
