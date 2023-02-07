@@ -1,7 +1,7 @@
 ---
 title: "(THM) Intro to Pipeline Automation"
 date: 2023-02-04T10:03:48-06:00
-draft: true
+draft: false
 tags:
     - DevOps
     - Notes
