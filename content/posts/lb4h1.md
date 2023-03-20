@@ -1,7 +1,7 @@
 ---
 title: "Linux Basics For Hackers Notes: Chapter 1"
 date: 2023-03-20T10:08:47-05:00
-draft: true
+draft: false
 tags:
     - Blue Team
     - Linux
