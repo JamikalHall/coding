@@ -1,5 +1,5 @@
 ---
-title: "(THM) Intro to Pipeline Automation"
+title: "Intro to Pipeline Automation"
 date: 2023-02-04T10:03:48-06:00
 draft: false
 tags:
@@ -29,7 +29,7 @@ A pipeline likely consists of the following:
 Question: Where in the pipeline is our end product deployed?
 Answer: Environment
 
-# Source Code and Version Control
+## Source Code and Version Control
 The start of a pipeline, as you will need somewhere to store your code as well as have version history since you are constantly adding features and improvements. What if you have some code that introduces a bug? With version history you could roll the codebase back to before the bad code was introduced.
 
 Two Common Tools: Git and Subversion(SVN). Git is a distributed source control tool, so each developer would get their own copy of the source code(i.e. cloning from a repo). SVN is centralized, meaning the repo is centrally managed somewhere.
@@ -45,7 +45,7 @@ Answer: Gitlab
 Question: What tool can be used to scan the commits of a repo for sensitive information?
 Answer: GittyLeaks
 
-# Dependencies
+## Dependencies
 
 In development, a lot of the heavy lifting is done through libraries and SDKs, and a dev's job is usually to make sure everything works well together. It is important to manage these dependencies as if there is a security risk in one, your entire application could be at risk. 
 
@@ -63,7 +63,7 @@ Answer: PyPi
 Question: What dependency 0day vulnerability set the world ablaze in 2021?
 Answer: Log4j
 
-# Automated Testing
+## Automated Testing
 
 Testing is vital to ensure the application runs smoothly. In the past, testers would have to manually document every test case, however now, automated testing within pipelines can handle a good bit of this.
 **Unit Testing** - A unit test is a test case for a small part of the application or service. The point is to test a small portion of the code to make sure the code works properly.
@@ -83,7 +83,7 @@ Answer: DAST
 Question: Can SAST and DAST be used as a replacement for penetration tests?
 Answer: No
 
-# CI/CD
+## CI/CD
 
 Continuous Integration and Continuous Deployment is the process of rapidly making improvements and add features to an application to deliver constant value. The pipelines typically have these elements:
  - Starting trigger - what begins the entire process, such as a push to a certain branch or repo.
@@ -104,7 +104,7 @@ Answer: build orchestrators
 Question: What do we call the build infrastructure element that performs the build?
 Answer: build agents
 
-# Environments
+## Environments
 
 Most pipelines have several environments. Common ones include:
 
