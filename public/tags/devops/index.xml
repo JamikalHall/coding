@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jamikal Hall - Blue Teamer</title>
-    <link>/</link>
-    <description>Recent content on Jamikal Hall - Blue Teamer</description>
+    <title>DevOps on Jamikal Hall - Blue Teamer</title>
+    <link>/tags/devops/</link>
+    <description>Recent content in DevOps on Jamikal Hall - Blue Teamer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Mar 2023 10:08:47 -0500</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Linux Basics For Hackers Notes: Chapter 1</title>
-      <link>/posts/lb4h1/</link>
-      <pubDate>Mon, 20 Mar 2023 10:08:47 -0500</pubDate>
-      
-      <guid>/posts/lb4h1/</guid>
-      <description>I originally wrote this a year ago on Medium. I have gone through these steps again, but I am trying ParrotOS instead of Kali. I did this to gain experience with a different distribution and in case I want to do exercises on HTB.
-Linux Basics for Hackers Notes: Chapter 1
-The first thing I did for this was set up my Kali Linux VM. I downloaded Oracle’s VM box and set it up according to the instructions in the book.</description>
-    </item>
-    
+    <lastBuildDate>Sat, 04 Feb 2023 10:03:48 -0600</lastBuildDate><atom:link href="/tags/devops/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Intro to Pipeline Automation</title>
       <link>/posts/intro-to-pipelines/</link>

@@ -39,12 +39,13 @@
   />
 
   
-  <title>My First Post - Jamikal Hall&#39;s Playground&#39;</title>
+  <title>Building a CI/CD Pipeline with Hugo - Jamikal Hall - Blue Teamer</title>
 
   
   <meta name="theme-color" />
   
-  <meta name="description" content="hello world" />
+  <meta name="description" content="I do not particularly like front-end development. I don&rsquo;t hate it, but I find building systems and working on the backend to be far more interesting. When working on the Cloud Resume Challenge, a lot of it is contingent on having a front-end for viewers to see.
+I decided that I want to be able to work on the later stages of the challenges, but not have to build an entire blog from scratch." />
   <meta
     name="author"
     content=""
@@ -97,8 +98,9 @@
   
   
   
-  <meta property="og:title" content="My First Post" />
-<meta property="og:description" content="hello world" />
+  <meta property="og:title" content="Building a CI/CD Pipeline with Hugo" />
+<meta property="og:description" content="I do not particularly like front-end development. I don&rsquo;t hate it, but I find building systems and working on the backend to be far more interesting. When working on the Cloud Resume Challenge, a lot of it is contingent on having a front-end for viewers to see.
+I decided that I want to be able to work on the later stages of the challenges, but not have to build an entire blog from scratch." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/posts/my-first-post/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-01-20T10:23:27-06:00" />
@@ -106,15 +108,17 @@
 
 
   
-  <meta itemprop="name" content="My First Post">
-<meta itemprop="description" content="hello world"><meta itemprop="datePublished" content="2023-01-20T10:23:27-06:00" />
+  <meta itemprop="name" content="Building a CI/CD Pipeline with Hugo">
+<meta itemprop="description" content="I do not particularly like front-end development. I don&rsquo;t hate it, but I find building systems and working on the backend to be far more interesting. When working on the Cloud Resume Challenge, a lot of it is contingent on having a front-end for viewers to see.
+I decided that I want to be able to work on the later stages of the challenges, but not have to build an entire blog from scratch."><meta itemprop="datePublished" content="2023-01-20T10:23:27-06:00" />
 <meta itemprop="dateModified" content="2023-01-20T10:23:27-06:00" />
-<meta itemprop="wordCount" content="2">
-<meta itemprop="keywords" content="" />
+<meta itemprop="wordCount" content="956">
+<meta itemprop="keywords" content="AWS,DevOps," />
   
   <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="My First Post"/>
-<meta name="twitter:description" content="hello world"/>
+<meta name="twitter:title" content="Building a CI/CD Pipeline with Hugo"/>
+<meta name="twitter:description" content="I do not particularly like front-end development. I don&rsquo;t hate it, but I find building systems and working on the backend to be far more interesting. When working on the Cloud Resume Challenge, a lot of it is contingent on having a front-end for viewers to see.
+I decided that I want to be able to work on the later stages of the challenges, but not have to build an entire blog from scratch."/>
 
   
   
@@ -126,7 +130,7 @@
     <a
       class="-translate-x-[1px] -translate-y-0.5 text-3xl font-bold"
       href="/"
-      >Jamikal Hall&#39;s Playground&#39;</a
+      >Jamikal Hall - Blue Teamer</a
     >
     <a
       class="btn-dark ml-6 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]"
@@ -199,7 +203,7 @@
 
 <article>
   <header class="mb-20">
-    <h1 class="!my-0 pb-2.5">My First Post</h1>
+    <h1 class="!my-0 pb-2.5">Building a CI/CD Pipeline with Hugo</h1>
 
     
     <div class="text-sm opacity-60">
@@ -211,14 +215,90 @@
     
   </header>
 
-  <section><p>hello world</p>
+  <section><p>I do not particularly like front-end development. I don&rsquo;t hate it, but I find building systems and working on the backend to be far more interesting. When working on the <a href="https://cloudresumechallenge.dev/docs/the-challenge/aws/">Cloud Resume Challenge</a>, a lot of it is contingent on having a front-end for viewers to see.</p>
+<p>I decided that I want to be able to work on the later stages of the challenges, but not have to build an entire blog from scratch. I knew I needed to host it myself in an S3 bucket as a static site. I had also been interested in learning a programming language really well, and had several debates between learning Python and Go. I learned that both Terraform and Kubernetes are written in Go, however learning Go would not necessarily translate to being able to use either of those tools more effectively, so I ended up learning a bit of Python. In my research though, I came across Hugo, which is a framework for quickly building static sites.</p>
+<p>Hugo allowed me to focus on building content and not have to think too much about engineering an entire front-end. I could pick a theme, write my content, and Hugo would take care of the rest.</p>
+<p>For this post, we will be covering the folllowing steps:</p>
+<ol start="2">
+<li>Writing the resume in HTML</li>
+<li>Adding CSS</li>
+<li>Deploying the site as an AWS S3 static website</li>
+<li>Having the website use HTTPS through Cloudfront</li>
+<li>Adding a custom domain name to the CloudFront distribution through Route 53.</li>
+<li>Adding the site code to <a href="https://github.com/JamikalHall/playground">Github</a></li>
+<li>Creating a CI/CD pipeline so that when code is pushed to Github, my site is updated automatically.</li>
+<li>Writing a blog post about the experience (what you&rsquo;re currently reading)</li>
+</ol>
+<p>In the challenge, Hugo handles steps 2 and 3, and makes steps 4 and 16 a lot easier to me. Doing all these together means that if I stop the challenge with just these steps, I will have at least built my own custom blog hosted on AWS.</p>
+<p>To complete steps 2 and 3, I followed the <a href="https://gohugo.io/getting-started/quick-start/">Quickstart Guide</a> documentation on the Hugo site. Instead of the Ananke theme, I chose the <a href="https://github.com/nanxiaobei/hugo-paper">Paper</a> theme because I liked the way it looked. After going through those steps, I had a sample site to work with. Now I needed to upload this site to Github.</p>
+<p>The first thought I had, is that it would be quite a pain to have to constantly build the Hugo site, then upload it to Github, then upload it to S3, and then open the CLI to invalidate the cache everytime I wanted to update my site. So I figured that doing things once through the GUI is fine, but I need to find a way to automate this ASAP. Rather than build the entire app, I wanted to deploy an MVP (minimum viable product) and have it be available, especially because the other features depend on the front-end being built first.</p>
+<p>Once I had the site running locally, I could work on getting to Github, then to my S3 bucket. I started this challenge long ago and did not document the steps to actually set up the S3 bucket for static-site hosting, but I followed these docs.</p>
+<ul>
+<li><a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html">https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html</a> to enable an S3 bucket for hosting</li>
+<li><a href="https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-https-requests-s3/">https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-https-requests-s3/</a> to register a site through Route 53</li>
+<li><a href="https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-https-requests-s3/">https://aws.amazon.com/premiumsupport/knowledge-center/cloudfront-https-requests-s3/</a> to enable Cloudfront to serve HTTPS.</li>
+</ul>
+<p>Hugo has a section on <a href="https://gohugo.io/hosting-and-deployment/hugo-deploy/">deploying</a>. There is not a specific document on publishing directly to S3, but there is a bit on hosting on <a href="https://gohugo.io/hosting-and-deployment/hosting-on-github/">Github</a>, specifically the &lsquo;Build Hugo with Github Action&rsquo; section.</p>
+<pre><code>jobs:
+    deploy:
+    runs-on: ubuntu-22.04
+    steps:
+        - uses: actions/checkout@v3
+
+  - name: Setup Hugo
+    uses: peaceiris/actions-hugo@v2
+    with:
+      hugo-version: 'latest'
+      # extended: true
+
+  - name: Build
+    run: hugo --minify
+</code></pre>
+<p>This, combined with the AWS S3 Sync command, allowed me to build a pipeline, that on push to the main branch, will get access to AWS S3, build my Hugo site, then Sync the contents of the public directory with my S3 Bucket.</p>
+<p>In the past, when pushing files to AWS S3, I would create a dedicated IAM role for communicating with Github, and this role would only have S3 permissions. However, these credentials are long-lived, and if for whatever reason someone got access to those credentials, they would have access to all my S3 resources/whatever permissions this role has. A better solution to this has been outlined <a href="https://benoitboure.com/securely-access-your-aws-resources-from-github-actions">here</a>. The TL;DR is instead of creating an IAM User to control pushing to S3, you create short-lived credentials to allow Github access to update S3 for a length of time that you determine (in my case I stuck with 900 seconds).</p>
+<p>Overall, while this post is not as detailed as it could be, I wanted to at least document some of what I accomplished during this first part of the resume challenge. Having this blog setup means I can continue to learn other adjacent ideas and document those as well.</p>
+<p>What I learned:</p>
+<ul>
+<li>I really enjoyed the process of building a pipeline. While this iteration of my pipeline is very simple, I can see how you can add complexity by first pushing to a staging branch for testing, then once tests pass, merge to the main branch and build your app. Automating things is fun.</li>
+<li>I realized that I do not currently have any tests in my code because there is very little interactivity(it is a static site after all). As I increase complexity and perhaps add more code and functionality, testing of all sorts will be a priority. I would then reference the above and use Git best practices to update the code.</li>
+<li>Sometimes building something that works (i.e. finishing some aspect of the project) and having that be available is better than trying to build the entire application at once.</li>
+</ul>
 </section>
 
   
   
+  <footer class="mt-12 flex flex-wrap">
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="/tags/aws"
+      >AWS</a
+    >
+     
+    <a
+      class="mr-1.5 mb-1.5 rounded-lg bg-black/[3%] px-5 py-2 no-underline dark:bg-white/[8%]"
+      href="/tags/devops"
+      >DevOps</a
+    >
+    
+  </footer>
+  
 
   
   
+  
+  <nav
+    class="mt-24 flex rounded-lg bg-black/[3%] p-1.5 text-lg dark:bg-white/[8%]"
+  >
+    
+    <a
+      class="flex w-1/2 items-center rounded-md p-6 pr-3 no-underline hover:bg-black/[2%]"
+      href="/posts/intro-to-pipelines/"
+      ><span class="mr-1.5">←</span><span>Intro to Pipeline Automation</span></a
+    >
+    
+    
+  </nav>
   
 
   
@@ -236,7 +316,7 @@
 >
   <div class="mr-auto">
     &copy; 2023
-    <a class="link" href="/">Jamikal Hall&#39;s Playground&#39;</a>
+    <a class="link" href="/">Jamikal Hall - Blue Teamer</a>
   </div>
   <a class="link mx-6" href="https://gohugo.io/" rel="noopener" target="_blank"
     >Powered by Hugo️️</a

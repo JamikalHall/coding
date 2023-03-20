@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Jamikal Hall - Blue Teamer</title>
-    <link>/</link>
-    <description>Recent content on Jamikal Hall - Blue Teamer</description>
+    <title>Notes on Jamikal Hall - Blue Teamer</title>
+    <link>/tags/notes/</link>
+    <description>Recent content in Notes on Jamikal Hall - Blue Teamer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 20 Mar 2023 10:08:47 -0500</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Mar 2023 10:08:47 -0500</lastBuildDate><atom:link href="/tags/notes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux Basics For Hackers Notes: Chapter 1</title>
       <link>/posts/lb4h1/</link>
@@ -28,16 +28,6 @@ The first thing I did for this was set up my Kali Linux VM. I downloaded Oracleâ
 Learning Objectives
 This room will teach you about the following concepts:
  Introduction to the DevOps pipeline Introduction to DevOps tools and automation Introduction to security principles for the DevOps pipeline  A pipeline likely consists of the following:</description>
-    </item>
-    
-    <item>
-      <title>Building a CI/CD Pipeline with Hugo</title>
-      <link>/posts/my-first-post/</link>
-      <pubDate>Fri, 20 Jan 2023 10:23:27 -0600</pubDate>
-      
-      <guid>/posts/my-first-post/</guid>
-      <description>I do not particularly like front-end development. I don&amp;rsquo;t hate it, but I find building systems and working on the backend to be far more interesting. When working on the Cloud Resume Challenge, a lot of it is contingent on having a front-end for viewers to see.
-I decided that I want to be able to work on the later stages of the challenges, but not have to build an entire blog from scratch.</description>
     </item>
     
   </channel>
