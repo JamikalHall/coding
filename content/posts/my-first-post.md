@@ -5,9 +5,10 @@ draft: false
 tags: 
   - AWS 
   - DevOps
+  - Projects
 ---
 
-I do not particularly like front-end development. I don't hate it, but I find building systems and working on the backend to be far more interesting. When working on the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/), a lot of it is contingent on having a front-end for viewers to see. 
+I wanted to do part of the [Cloud Resume Challenge](https://cloudresumechallenge.dev/docs/the-challenge/aws/).
 
 I decided that I want to be able to work on the later stages of the challenges, but not have to build an entire blog from scratch. I knew I needed to host it myself in an S3 bucket as a static site. I had also been interested in learning a programming language really well, and had several debates between learning Python and Go. I learned that both Terraform and Kubernetes are written in Go, however learning Go would not necessarily translate to being able to use either of those tools more effectively, so I ended up learning a bit of Python. In my research though, I came across Hugo, which is a framework for quickly building static sites. 
 
