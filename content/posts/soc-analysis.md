@@ -1,5 +1,5 @@
 ---
-title: "Analyzing Threats and Building Detection Rules"
+title: "Analyzing Threats and Building Detection Rules with LimaCharlie"
 date: 2023-06-04T11:48:54-05:00
 draft: false
 tags:
