@@ -1,5 +1,5 @@
 ---
-title: "Building a Basic Web Application with AWS Amplify, API Gateway, Lambda and API Gateway"
+title: "Building a Basic Web Application with AWS Amplify, API Gateway, and Lambda"
 date: 2023-08-24T11:17:33-05:00
 tags: 
  - AWS
