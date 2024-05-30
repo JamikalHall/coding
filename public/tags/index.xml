@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Jamikal Hall</title>
+    <link>https://jamikal.xyz/tags/</link>
+    <description>Recent content in Tags on Jamikal Hall</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 24 Aug 2023 11:17:33 -0500</lastBuildDate><atom:link href="https://jamikal.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>AWS</title>
+      <link>https://jamikal.xyz/tags/aws/</link>
+      <pubDate>Thu, 24 Aug 2023 11:17:33 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/aws/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>DevOps</title>
+      <link>https://jamikal.xyz/tags/devops/</link>
+      <pubDate>Thu, 24 Aug 2023 11:17:33 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/devops/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Projects</title>
+      <link>https://jamikal.xyz/tags/projects/</link>
+      <pubDate>Thu, 24 Aug 2023 11:17:33 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/projects/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Blue Team</title>
+      <link>https://jamikal.xyz/tags/blue-team/</link>
+      <pubDate>Sun, 04 Jun 2023 11:48:54 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/blue-team/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Red Team</title>
+      <link>https://jamikal.xyz/tags/red-team/</link>
+      <pubDate>Sun, 04 Jun 2023 11:48:54 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/red-team/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TryHackMe</title>
+      <link>https://jamikal.xyz/tags/tryhackme/</link>
+      <pubDate>Sun, 04 Jun 2023 11:48:54 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/tryhackme/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Notes</title>
+      <link>https://jamikal.xyz/tags/notes/</link>
+      <pubDate>Thu, 01 Jun 2023 18:23:23 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/notes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CTF</title>
+      <link>https://jamikal.xyz/tags/ctf/</link>
+      <pubDate>Sun, 02 Apr 2023 11:02:00 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Linux</title>
+      <link>https://jamikal.xyz/tags/linux/</link>
+      <pubDate>Sun, 02 Apr 2023 11:02:00 -0500</pubDate>
+      
+      <guid>https://jamikal.xyz/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

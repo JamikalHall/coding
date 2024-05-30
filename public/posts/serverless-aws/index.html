@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Building a Basic Web Application with AWS Amplify, API Gateway, and Lambda - Jamikal Hall</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="This site is currently built using some serverless resources, specifically AWS S3, CloudFront, Route 53, Hugo and Github Actions. This was good for me because I did not want to write much front-end code, and using these technologies allowed me to focus on creating content. As I continue my journey to becoming a better engineer, I wanted to build a different site that I could use as a vehicle for learning additional technologies, without compromising this one." />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="Building a Basic Web Application with AWS Amplify, API Gateway, and Lambda" />
+<meta property="og:description" content="This site is currently built using some serverless resources, specifically AWS S3, CloudFront, Route 53, Hugo and Github Actions. This was good for me because I did not want to write much front-end code, and using these technologies allowed me to focus on creating content. As I continue my journey to becoming a better engineer, I wanted to build a different site that I could use as a vehicle for learning additional technologies, without compromising this one." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jamikal.xyz/posts/serverless-aws/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-24T11:17:33-05:00" />
+<meta property="article:modified_time" content="2023-08-24T11:17:33-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Building a Basic Web Application with AWS Amplify, API Gateway, and Lambda"/>
+<meta name="twitter:description" content="This site is currently built using some serverless resources, specifically AWS S3, CloudFront, Route 53, Hugo and Github Actions. This was good for me because I did not want to write much front-end code, and using these technologies allowed me to focus on creating content. As I continue my journey to becoming a better engineer, I wanted to build a different site that I could use as a vehicle for learning additional technologies, without compromising this one."/>
+
+	
+        <link href="https://jamikal.xyz/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://jamikal.xyz/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://jamikal.xyz/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css" media="(prefers-color-scheme: dark)"  />
+	
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://jamikal.xyz">Jamikal Hall</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Building a Basic Web Application with AWS Amplify, API Gateway, and Lambda</h1>
+			<div class="meta">Posted on Aug 24, 2023</div>
+		</div>
+		
+
+		<section class="body">
+			<p>This site is currently built using some serverless resources, specifically AWS S3, CloudFront, Route 53, Hugo and Github Actions. This was good for me because I did not want to write much front-end code, and using these technologies allowed me to focus on creating content. As I continue my journey to becoming a better engineer, I wanted to build a different site that I could use as a vehicle for learning additional technologies, without compromising this one. In other words, I wanted to build a test/dev site and not ruin my production site.</p>
+<p>AWS has a lab where we <a href="https://aws.amazon.com/getting-started/hands-on/build-web-app-s3-lambda-api-gateway-dynamodb/?ref=gsrchandson">Build a Basic Web Application</a>. This lab uses AWS Amplify, IAM, API Gateway, Lambda and DynamoDB to build a basic web app. I have not used these resources before so it will be good practice to learn how they work. Another step I would like to add is using Terraform to add versioning to this infrastructure.</p>
+<p>To prepare for this, I have created a new AWS account to host all of the infrastructure. I have also created a new IAM admin user with MFA enabled.</p>
+<h2 id="module-1-create-a-web-app">Module 1: Create a Web App</h2>
+<p>We are leveraging AWS Amplify, which is a more straightforward way to deploy a static site. With my personal portfolio site, I used an S3 bucket to accomplish this. It will be interesting to see the differences between the two approaches. From what I understand, Amplify obscures the need to work with S3 directly and makes it easier to get up and running with a static site.</p>
+<p>The first step is to create an index.html file, and zip it so that I can upload it to Amplify.</p>
+<p><img src="/AWS-serverless/1-html.png" alt="1"></p>
+<p>Here are the settings I will be using:</p>
+<p><img src="/AWS-serverless/2-amplify.png" alt="2"></p>
+<p>The deployment was successful.</p>
+<p><img src="/AWS-serverless/3-deploymentsuccessful.png" alt="3"></p>
+<p>The site loads as expected! I can see the appeal of Amplify immediately.</p>
+<p><img src="/AWS-serverless/4-helloworld.png" alt="4"></p>
+<h2 id="module-2-build-a-serverless-function">Module 2: Build a Serverless Function</h2>
+<p>Next, I will be building a Lambda function using Python. Here are the fields I filled out:</p>
+<p><img src="/AWS-serverless/5-createlambda.png" alt="5"></p>
+<p>This is the code provided to us by AWS:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># import the JSON utility package since we will be working with a JSON object</span>
+<span style="color:#f92672">import</span> json
+<span style="color:#75715e"># define the handler function that the Lambda service will use as an entry point</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+<span style="color:#75715e"># extract values from the event object we got from the Lambda service</span>
+    name <span style="color:#f92672">=</span> event[<span style="color:#e6db74">&#39;firstName&#39;</span>] <span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span> event[<span style="color:#e6db74">&#39;lastName&#39;</span>]
+<span style="color:#75715e"># return a properly formatted JSON object</span>
+    <span style="color:#66d9ef">return</span> {
+    <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+    <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">&#39;Hello from Lambda, &#39;</span> <span style="color:#f92672">+</span> name)
+    }
+</code></pre></div><p>Luckily, because I have been working on CS50&rsquo;s python course I can understand this code a bit. I looked at the documentation for the json.dumps method just to be sure I understand what it does. It converts an object to a string using a conversion table.</p>
+<p>I then create a test event to test the Lambda function. It worked successfully!</p>
+<p><img src="/AWS-serverless/6-lambdatest.png" alt="6"></p>
+<h2 id="module-3-link-a-serverless-function-to-a-web-app">Module 3: Link a Serverless Function to a Web App</h2>
+<p>The next step is to create the API Gateway, which will act as the middle layer between the user and the backend.</p>
+<p><img src="/AWS-serverless/7-apigateway.png" alt="7"></p>
+<p>Next I define a method for POST calls to my API.</p>
+<p><img src="/AWS-serverless/8-postmethod.png" alt="8"></p>
+<p>Then I enable CORS for my API.</p>
+<p><img src="/AWS-serverless/9-cors.png" alt="9"></p>
+<p>Note: I did not actually understand what CORS was or why it was important. The idea behind CORS is that websites have resources that they use for their site, like images, videos, etc. If the site that owns that resource wants to use it, then there is typically no problem because the origin is the same. However, if another site wanted to use that resource, then it may not be allowed if the original site does not have CORS enabled. This is important for security, as without it, sites would be able to access your information without permission. I am no expert, but I can see why its important now and why it is necessary to enable it.</p>
+<p>Next I test my lambda function. I am expecting it to return a status code and a statement saying &ldquo;Hello from Lambda&rdquo; plus the name that is passed in by the API.</p>
+<p><img src="/AWS-serverless/10-deployapi.png" alt="10"></p>
+<p><img src="/AWS-serverless/11-lambdaworks.png" alt="11"></p>
+<p>The test was successful!</p>
+<h2 id="module-4-create-a-data-table">Module 4: Create a Data Table</h2>
+<p>For this module, we will create a DynamoDB table and create an IAM user to allow our lambda function to talk to write to our DB.</p>
+<p>First we create our table.</p>
+<p><img src="/AWS-serverless/12-dynamodb.png" alt="12"></p>
+<p>Next we need to edit our Lambda function&rsquo;s permissions to enable access to read,edit and delete items for the specific table we specify.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<span style="color:#f92672">&#34;Version&#34;</span>: <span style="color:#e6db74">&#34;2012-10-17&#34;</span>,
+<span style="color:#f92672">&#34;Statement&#34;</span>: [
+    {
+        <span style="color:#f92672">&#34;Sid&#34;</span>: <span style="color:#e6db74">&#34;VisualEditor0&#34;</span>,
+        <span style="color:#f92672">&#34;Effect&#34;</span>: <span style="color:#e6db74">&#34;Allow&#34;</span>,
+        <span style="color:#f92672">&#34;Action&#34;</span>: [
+            <span style="color:#e6db74">&#34;dynamodb:PutItem&#34;</span>,
+            <span style="color:#e6db74">&#34;dynamodb:DeleteItem&#34;</span>,
+            <span style="color:#e6db74">&#34;dynamodb:GetItem&#34;</span>,
+            <span style="color:#e6db74">&#34;dynamodb:Scan&#34;</span>,
+            <span style="color:#e6db74">&#34;dynamodb:Query&#34;</span>,
+            <span style="color:#e6db74">&#34;dynamodb:UpdateItem&#34;</span>
+        ],
+        <span style="color:#f92672">&#34;Resource&#34;</span>: <span style="color:#e6db74">&#34;YOUR-TABLE-ARN&#34;</span>
+    }
+    ]
+}
+</code></pre></div><p>note: this is the code provided by AWS. In my code I have replaced &ldquo;YOUR-TABLE-ARN&rdquo; with the resource number for my example table.</p>
+<p><img src="/AWS-serverless/13-dynamopolicy.png" alt="13"></p>
+<p>Next we need to adjust the code in our lambda function to actually do what we need it to do, which is access our DB table.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># import the json utility package since we will be working with a JSON object</span>
+<span style="color:#f92672">import</span> json
+<span style="color:#75715e"># import the AWS SDK (for Python the package name is boto3)</span>
+<span style="color:#f92672">import</span> boto3
+<span style="color:#75715e"># import time </span>
+<span style="color:#f92672">import</span> time
+<span style="color:#75715e"># import two packages to help us with dates and date formatting</span>
+
+<span style="color:#75715e"># create a DynamoDB object using the AWS SDK</span>
+dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+<span style="color:#75715e"># use the DynamoDB object to select our table</span>
+table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;HelloWorldDatabase&#39;</span>)
+
+<span style="color:#75715e"># define the handler function that the Lambda service will use as an entry point</span>
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+ <span style="color:#75715e"># Get the current GMT time</span>
+    gmt_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>gmtime()
+
+    <span style="color:#75715e"># store the current time in a human readable format in a variable</span>
+    <span style="color:#75715e"># Format the GMT time string</span>
+    now <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>strftime(<span style="color:#e6db74">&#39;</span><span style="color:#e6db74">%a</span><span style="color:#e6db74">, </span><span style="color:#e6db74">%d</span><span style="color:#e6db74"> %b %Y %H:%M:%S +0000&#39;</span>, gmt_time)
+
+
+<span style="color:#75715e"># extract values from the event object we got from the Lambda service and store in a variable</span>
+    name <span style="color:#f92672">=</span> event[<span style="color:#e6db74">&#39;firstName&#39;</span>] <span style="color:#f92672">+</span><span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">+</span> event[<span style="color:#e6db74">&#39;lastName&#39;</span>]
+<span style="color:#75715e"># write name and time to the DynamoDB table using the object we instantiated and save response in a variable</span>
+    response <span style="color:#f92672">=</span> table<span style="color:#f92672">.</span>put_item(
+        Item<span style="color:#f92672">=</span>{
+            <span style="color:#e6db74">&#39;ID&#39;</span>: name,
+            <span style="color:#e6db74">&#39;LatestGreetingTime&#39;</span>:now
+            })
+<span style="color:#75715e"># return a properly formatted JSON object</span>
+    <span style="color:#66d9ef">return</span> {
+        <span style="color:#e6db74">&#39;statusCode&#39;</span>: <span style="color:#ae81ff">200</span>,
+        <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(<span style="color:#e6db74">&#39;Hello from Lambda, &#39;</span> <span style="color:#f92672">+</span> name)
+    }
+</code></pre></div><p>note: make sure that the table resource you are calling in this line <code>table = dynamodb.Table('HelloWorldDatabase')</code> matches the name of the table you created.</p>
+<p>Next I confirm that my Lambda function wrote persistent data to my DynamoDB table.</p>
+<p><img src="/AWS-serverless/14-wrotedata.png" alt="14"></p>
+<h2 id="module-5---add-interactivity-to-the-web-app">Module 5 - Add Interactivity to the Web App</h2>
+<p>Next I will update the code in the HTML document to the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html"><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color:#f92672">html</span>&gt;
+&lt;<span style="color:#f92672">head</span>&gt;
+    &lt;<span style="color:#f92672">meta</span> <span style="color:#a6e22e">charset</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;UTF-8&#34;</span>&gt;
+    &lt;<span style="color:#f92672">title</span>&gt;Hello World&lt;/<span style="color:#f92672">title</span>&gt;
+    <span style="color:#75715e">&lt;!-- Add some CSS to change client UI --&gt;</span>
+    &lt;<span style="color:#f92672">style</span>&gt;
+    <span style="color:#f92672">body</span> {
+        <span style="color:#66d9ef">background-color</span>: <span style="color:#ae81ff">#232F3E</span>;
+        }
+    <span style="color:#f92672">label</span><span style="color:#f92672">,</span> <span style="color:#f92672">button</span> {
+        <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#FF9900</span>;
+        <span style="color:#66d9ef">font-family</span>: Arial, Helvetica, <span style="color:#66d9ef">sans-serif</span>;
+        <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+        <span style="color:#66d9ef">margin-left</span>: <span style="color:#ae81ff">40</span><span style="color:#66d9ef">px</span>;
+        }
+     <span style="color:#f92672">input</span> {
+        <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#232F3E</span>;
+        <span style="color:#66d9ef">font-family</span>: Arial, Helvetica, <span style="color:#66d9ef">sans-serif</span>;
+        <span style="color:#66d9ef">font-size</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+        <span style="color:#66d9ef">margin-left</span>: <span style="color:#ae81ff">20</span><span style="color:#66d9ef">px</span>;
+        }
+    &lt;/<span style="color:#f92672">style</span>&gt;
+    &lt;<span style="color:#f92672">script</span>&gt;
+        <span style="color:#75715e">// define the callAPI function that takes a first name and last name as parameters
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">callAPI</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">firstName</span>,<span style="color:#a6e22e">lastName</span>)=&gt;{
+            <span style="color:#75715e">// instantiate a headers object
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">myHeaders</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Headers</span>();
+            <span style="color:#75715e">// add content type header to object
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">myHeaders</span>.<span style="color:#a6e22e">append</span>(<span style="color:#e6db74">&#34;Content-Type&#34;</span>, <span style="color:#e6db74">&#34;application/json&#34;</span>);
+            <span style="color:#75715e">// using built in JSON utility package turn object to string and store in a variable
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">raw</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>({<span style="color:#e6db74">&#34;firstName&#34;</span><span style="color:#f92672">:</span><span style="color:#a6e22e">firstName</span>,<span style="color:#e6db74">&#34;lastName&#34;</span><span style="color:#f92672">:</span><span style="color:#a6e22e">lastName</span>});
+            <span style="color:#75715e">// create a JSON object with parameters for API call and store in a variable
+</span><span style="color:#75715e"></span>            <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">requestOptions</span> <span style="color:#f92672">=</span> {
+                <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;POST&#39;</span>,
+                <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">myHeaders</span>,
+                <span style="color:#a6e22e">body</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">raw</span>,
+                <span style="color:#a6e22e">redirect</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;follow&#39;</span>
+            };
+            <span style="color:#75715e">// make API call with parameters and use promises to get response
+</span><span style="color:#75715e"></span>            <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#34;YOUR-API-INVOKE-URL&#34;</span>, <span style="color:#a6e22e">requestOptions</span>)
+            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">response</span> =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">text</span>())
+            .<span style="color:#a6e22e">then</span>(<span style="color:#a6e22e">result</span> =&gt; <span style="color:#a6e22e">alert</span>(<span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">result</span>).<span style="color:#a6e22e">body</span>))
+            .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">error</span> =&gt; <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;error&#39;</span>, <span style="color:#a6e22e">error</span>));
+        }
+    &lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">head</span>&gt;
+&lt;<span style="color:#f92672">body</span>&gt;
+    &lt;<span style="color:#f92672">form</span>&gt;
+        &lt;<span style="color:#f92672">label</span>&gt;First Name :&lt;/<span style="color:#f92672">label</span>&gt;
+        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;fName&#34;</span>&gt;
+        &lt;<span style="color:#f92672">label</span>&gt;Last Name :&lt;/<span style="color:#f92672">label</span>&gt;
+        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;text&#34;</span> <span style="color:#a6e22e">id</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;lName&#34;</span>&gt;
+        <span style="color:#75715e">&lt;!-- set button onClick method to call function we defined passing input values as parameters --&gt;</span>
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;callAPI(document.getElementById(&#39;fName&#39;).value,document.getElementById(&#39;lName&#39;).value)&#34;</span>&gt;Call API&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">form</span>&gt;
+&lt;/<span style="color:#f92672">body</span>&gt;
+&lt;/<span style="color:#f92672">html</span>&gt;
+</code></pre></div><p>This was a lot of additions, but it includes the functionality needed to call the lambda function.</p>
+<p>Next we add the new code to our Amplify deployment.</p>
+<p><img src="/AWS-serverless/15-newdeployment.png" alt="15"></p>
+<p>Then we open the new deployment and test the functionality.</p>
+<p><img src="/AWS-serverless/16-success!.png" alt="16"></p>
+<p>It works as expected! Now that it works, I will tear everything down so as not to incur any additional charges.</p>
+<p>Takeaways:</p>
+<p>Working with Lambda, API Gateway, DynamoDB and Amplify are all incredible services that can make developing much easier. While I am no expert, I can see the use case for each of these tools and the appeal of each.
+Next, I want to work on adding additional DevOps processes to this project to improve it&rsquo;s ability to scale.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/aws">AWS</a></li>
+					
+					<li><a href="/tags/projects">Projects</a></li>
+					
+					<li><a href="/tags/devops">DevOps</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2024  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

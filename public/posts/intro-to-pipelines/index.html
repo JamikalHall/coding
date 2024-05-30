@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Intro to Pipeline Automation - Jamikal Hall</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="In my last post, I built a simple pipeline to automatically update my website whenever I make a push to my Git repository. In this post, I am posting the notes I have taken from TryHackMe&rsquo;s room on pipeline automation. I am not going to copy verbatim, rather summarize the notes in my own words.
+Learning Objectives
+This room will teach you about the following concepts:
+ Introduction to the DevOps pipeline Introduction to DevOps tools and automation Introduction to security principles for the DevOps pipeline  A pipeline likely consists of the following:" />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="Intro to Pipeline Automation" />
+<meta property="og:description" content="In my last post, I built a simple pipeline to automatically update my website whenever I make a push to my Git repository. In this post, I am posting the notes I have taken from TryHackMe&rsquo;s room on pipeline automation. I am not going to copy verbatim, rather summarize the notes in my own words.
+Learning Objectives
+This room will teach you about the following concepts:
+ Introduction to the DevOps pipeline Introduction to DevOps tools and automation Introduction to security principles for the DevOps pipeline  A pipeline likely consists of the following:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jamikal.xyz/posts/intro-to-pipelines/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-04T10:03:48-06:00" />
+<meta property="article:modified_time" content="2023-02-04T10:03:48-06:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Intro to Pipeline Automation"/>
+<meta name="twitter:description" content="In my last post, I built a simple pipeline to automatically update my website whenever I make a push to my Git repository. In this post, I am posting the notes I have taken from TryHackMe&rsquo;s room on pipeline automation. I am not going to copy verbatim, rather summarize the notes in my own words.
+Learning Objectives
+This room will teach you about the following concepts:
+ Introduction to the DevOps pipeline Introduction to DevOps tools and automation Introduction to security principles for the DevOps pipeline  A pipeline likely consists of the following:"/>
+
+	
+        <link href="https://jamikal.xyz/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://jamikal.xyz/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://jamikal.xyz/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css" media="(prefers-color-scheme: dark)"  />
+	
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://jamikal.xyz">Jamikal Hall</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Intro to Pipeline Automation</h1>
+			<div class="meta">Posted on Feb 4, 2023</div>
+		</div>
+		
+
+		<section class="body">
+			<p>In my last post, I built a simple pipeline to automatically update my website whenever I make a push to my Git repository. In this post, I am posting the notes I have taken from <a href="https://tryhackme.com/room/introtopipelineautomation">TryHackMe&rsquo;s</a> room on pipeline automation. I am not going to copy verbatim, rather summarize the notes in my own words.</p>
+<p><strong>Learning Objectives</strong></p>
+<p>This room will teach you about the following concepts:</p>
+<ul>
+<li>Introduction to the DevOps pipeline</li>
+<li>Introduction to DevOps tools and automation</li>
+<li>Introduction to security principles for the DevOps pipeline</li>
+</ul>
+<p>A pipeline likely consists of the following:</p>
+<ol>
+<li>Source Code Storage/Version Control</li>
+<li>Continuous Integration</li>
+<li>Environments</li>
+<li>Automated Testing</li>
+<li>Dependency Management</li>
+</ol>
+<p>Question: Where in the pipeline is our end product deployed?
+Answer: Environment</p>
+<h2 id="source-code-and-version-control">Source Code and Version Control</h2>
+<p>The start of a pipeline, as you will need somewhere to store your code as well as have version history since you are constantly adding features and improvements. What if you have some code that introduces a bug? With version history you could roll the codebase back to before the bad code was introduced.</p>
+<p>Two Common Tools: Git and Subversion(SVN). Git is a distributed source control tool, so each developer would get their own copy of the source code(i.e. cloning from a repo). SVN is centralized, meaning the repo is centrally managed somewhere.</p>
+<p>Secret Management is important. The source cannot obfuscate everything, so plaintext credentials should never be stored in your code.</p>
+<p>Question: Who is the largest online provider of Git?
+Answer: Github</p>
+<p>Question: What popular Git product is used to host your own Git server?
+Answer: Gitlab</p>
+<p>Question: What tool can be used to scan the commits of a repo for sensitive information?
+Answer: GittyLeaks</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>In development, a lot of the heavy lifting is done through libraries and SDKs, and a dev&rsquo;s job is usually to make sure everything works well together. It is important to manage these dependencies as if there is a security risk in one, your entire application could be at risk.</p>
+<p>Developing internal software has risks because its up to the company to maintain it; this can cause problems if the code is widely used within the codebase and not frequently updated for security. Using external libraries can be dangerous too, as you must investigate to make sure that this third party library is secure.</p>
+<p>Question: What do we call the type of dependency that was created by our organisation?
+Answer: Internal</p>
+<p>Question: What type of dependency is JQuery?
+Answer: External</p>
+<p>Question: What is the name of Python&rsquo;s public dependency repo?
+Answer: PyPi</p>
+<p>Question: What dependency 0day vulnerability set the world ablaze in 2021?
+Answer: Log4j</p>
+<h2 id="automated-testing">Automated Testing</h2>
+<p>Testing is vital to ensure the application runs smoothly. In the past, testers would have to manually document every test case, however now, automated testing within pipelines can handle a good bit of this.
+<strong>Unit Testing</strong> - A unit test is a test case for a small part of the application or service. The point is to test a small portion of the code to make sure the code works properly.
+<strong>Integration Testing</strong> - Integration testing focuses on how the code works with other parts of code. Another part of integration testing is regression testing, which makes sure that new features do not negatively impact existing features.
+<strong>Security Testing</strong> - comes in two main flavors:</p>
+<ol>
+<li>SAST - Static Application Security Testing scans the source code for security vulnerabilities.</li>
+<li>DAST - Dynamic Application Security Testing tests by actually running the code; some vulnerabilities cannot be detected by just analyzing the source code.</li>
+</ol>
+<p>There is also the traditonal <em>Penetration Testing</em> which is just manually testing the application for vulnerabilities. Though security tools have advanced rapidly, it is still important because some vulnerabilities require context, such as exploiting business logic.</p>
+<p>Question: What type of tool scans code to look for potential vulnerabilities?
+Answer: SAST</p>
+<p>Question: What type of tool runs code and injects test cases to look for potential vulnerabilities?
+Answer: DAST</p>
+<p>Question: Can SAST and DAST be used as a replacement for penetration tests?
+Answer: No</p>
+<h2 id="cicd">CI/CD</h2>
+<p>Continuous Integration and Continuous Deployment is the process of rapidly making improvements and add features to an application to deliver constant value. The pipelines typically have these elements:</p>
+<ul>
+<li>Starting trigger - what begins the entire process, such as a push to a certain branch or repo.</li>
+<li>Building Actions - actions taken to build the application along with the new feature</li>
+<li>Testing Actions - testing to ensure the application works as expected, without ruining existing features</li>
+<li>Deployment Actions - once the builds complete, and testing passes, what should happen after, i.e. the build should be pushed to a testing environment/branch</li>
+<li>Delivery Actions - now that the build is deployed, we add monitoring or other actions.</li>
+</ul>
+<p>Question: What does CI in CI/CD stand for?
+Answer: Continuous Integration</p>
+<p>Question: What does CD in CI/CD stand for?
+Answer: Continuous Delivery</p>
+<p>Question: What do we call the build infrastructure element that controls all builds?
+Answer: build orchestrators</p>
+<p>Question: What do we call the build infrastructure element that performs the build?
+Answer: build agents</p>
+<h2 id="environments">Environments</h2>
+<p>Most pipelines have several environments. Common ones include:</p>
+<p><strong>Dev (Development)</strong> - The playground for developers to add code and test features. Likely, the security controls are the most lax, but with proper segmentation having the dev enviroment be compromised is a lower impact.</p>
+<p><strong>UAT (User Acceptance Testing)</strong> - UAT is used to test the application or certain features before being pushed to production. This usually includes unit tests and security tests as well.</p>
+<p><strong>PreProd</strong> - Pre-production is used to mirror Prod but without customer data. It should have similar security controls to Prod, be kept stable and be used to perform final tests before pushing code to Production.</p>
+<p><strong>Production</strong> - The active enviroment that customers will actually use.</p>
+<p><strong>DR/HA</strong> - Depending on how critical the system is, there may be a Disaster Recovery environment or High Availability environment as well. DR is self explanatory, High Availability is used for critical applications where uptime is the most important feature.</p>
+<p><strong>Blue/Green Environments</strong> - A deployment strategy where there are two Prod environments. Blue runs the current app version and Green runs the new one. Using a proxy/router, traffic can be switched to the Green environment when necessary, and the blue environment is still kept in case of issues.</p>
+<p><strong>Canary Environments</strong> - Similarly, in a canary deployment two Prod environments are used and users are gradually moved from one environment to the new environment. For example, 10% of users could be migrated, and if the environment is stable with no issues, another 10% and so on.</p>
+<p>Question: Which environment usually has the weakest security configuration?
+Answer: Dev</p>
+<p>Question: Which environment is used to test the application?
+Answer: UAT</p>
+<p>Question: Which environment is similar to PROD but is used to verify that everything is working before it is pushed to PROD?
+Answer: PreProd</p>
+<p>Question: What is a common class of vulnerabilities that is discovered in PROD due to insecure code creeping in from DEV?
+Answer: Developer Bypasses</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/devops">DevOps</a></li>
+					
+					<li><a href="/tags/notes">Notes</a></li>
+					
+					<li><a href="/tags/tryhackme">TryHackMe</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2024  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>

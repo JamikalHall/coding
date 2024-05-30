@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html><head lang="en">
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>Linux Basics For Hackers Notes: Chapter 1 - Jamikal Hall</title><meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="I originally wrote this a year ago on Medium. I have gone through these steps again, but I am trying ParrotOS instead of Kali. I did this to gain experience with a different distribution and in case I want to do exercises on HTB.
+Linux Basics for Hackers Notes: Chapter 1
+The first thing I did for this was set up my Kali Linux VM. I downloaded Oracle’s VM box and set it up according to the instructions in the book." />
+	<meta property="og:image" content=""/>
+	<meta property="og:title" content="Linux Basics For Hackers Notes: Chapter 1" />
+<meta property="og:description" content="I originally wrote this a year ago on Medium. I have gone through these steps again, but I am trying ParrotOS instead of Kali. I did this to gain experience with a different distribution and in case I want to do exercises on HTB.
+Linux Basics for Hackers Notes: Chapter 1
+The first thing I did for this was set up my Kali Linux VM. I downloaded Oracle’s VM box and set it up according to the instructions in the book." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jamikal.xyz/posts/lb4h1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-20T10:08:47-05:00" />
+<meta property="article:modified_time" content="2023-03-20T10:08:47-05:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux Basics For Hackers Notes: Chapter 1"/>
+<meta name="twitter:description" content="I originally wrote this a year ago on Medium. I have gone through these steps again, but I am trying ParrotOS instead of Kali. I did this to gain experience with a different distribution and in case I want to do exercises on HTB.
+Linux Basics for Hackers Notes: Chapter 1
+The first thing I did for this was set up my Kali Linux VM. I downloaded Oracle’s VM box and set it up according to the instructions in the book."/>
+
+	
+        <link href="https://jamikal.xyz/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+	
+
+	
+	<link rel="stylesheet" type="text/css" media="screen" href="https://jamikal.xyz/css/main.ac08a4c9714baa859217f92f051deb58df2938ec352b506df655005dcaf98cc0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://jamikal.xyz/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css" media="(prefers-color-scheme: dark)"  />
+	
+
+	
+	
+
+	
+	
+	
+	
+</head>
+<body>
+        <div class="content"><header>
+	<div class="main">
+		<a href="https://jamikal.xyz">Jamikal Hall</a>
+	</div>
+	<nav>
+		
+		<a href="/">Home</a>
+		
+		<a href="/posts">All posts</a>
+		
+		<a href="/tags">Tags</a>
+		
+		
+	</nav>
+</header>
+
+<main>
+	<article>
+		<div class="title">
+			<h1 class="title">Linux Basics For Hackers Notes: Chapter 1</h1>
+			<div class="meta">Posted on Mar 20, 2023</div>
+		</div>
+		
+
+		<section class="body">
+			<p>I originally wrote this a year ago on Medium. I have gone through these steps again, but I am trying ParrotOS instead of Kali. I did this to gain experience with a different distribution and in case I want to do exercises on HTB.</p>
+<p>Linux Basics for Hackers Notes: Chapter 1</p>
+<p>The first thing I did for this was set up my Kali Linux VM. I downloaded Oracle’s VM box and set it up according to the instructions in the book. Next, I took notes on important definitions that may come up again, as well as general knowledge given in the book. Below are these definitions in my own words.</p>
+<pre><code>Binaries — Files that can be executed, the Linux equivalent of .exe files on Windows.
+Case Sensitivity — Linux is case sensitive unlike Windows, so a file called DESKTOP.txt would be completely different from a file called desktop.txt.
+Directory — equivalent to a folder in Windows. A way to organize files.
+Home — a directory where the files a user creates will be saved by default (usually).
+Kali — The distribution of Linux specifically designed for pentesting.
+root — Linux’s admin/superuser account, designed to allow a user just about complete control of the entire system.
+script — A series of commands run in an interpreter, which converts the line into instructions the computer can act up.
+shell — An interpreter for running commands in Linux. The most common is Bash (bourne-again shell).
+Terminal — a command line interface.
+</code></pre>
+<p>Chapter one also includes a diagram of the Linux file structure.</p>
+<p><img src="/lb4hackers1.png" alt="lb4hackers1.png"></p>
+<p>The root (/) of the filesystem is at the top of the tree, and the following are the most important subdirectories to know:</p>
+<pre><code>/Root The home directory of the all-­powerful root user
+/etc Generally contains the Linux configuration files — files that control when and how programs start up
+/Home The user’s home directory
+/mnt Where other filesystems are attached or mounted to the filesystem
+/Media Where CDs and USB devices are usually attached or mounted to the filesystem
+/Bin Where application binaries (the equivalent of executables in Microsoft Windows) reside
+/Lib Where you’ll find libraries (shared programs that are similar to Windows DLLs)
+</code></pre>
+<h2 id="next-chapter-1-discusses-basic-linux-commands-to-navigate-the-filesystem">Next, Chapter 1 discusses basic Linux commands to navigate the filesystem.</h2>
+<p><strong>pwd</strong>— present working directory. This command will show you the current directory you are in.</p>
+<p><strong>whoami</strong> — tells you what user you are currently logged as.</p>
+<p><strong>cd</strong> — Change directory. This combined with a directory location, such as /home or /etc, will change your directory to where you specify, as long as it is valid. You can also use two dots ‘..’ to move up a directory level. You can continually combine these to continually move up levels in the file structure.</p>
+<p><strong>ls</strong> — list will show the files and directories contained in the current directory. You can list the contents of other directories as well. Adding the -l switch will provide more detailed info about the files in the directory. Adding the -a switch will list hidden files.</p>
+<h2 id="these-two-commands-are-for-getting-assistance-with-a-tool-or-command">These two commands are for getting assistance with a tool or command.</h2>
+<p><strong>help</strong> — using this command after another, such as aircrack-ng, will provide the tool’s dedicated help page to show how to use it(assuming the tool has a help page). -h and -? also provide help pages.</p>
+<p><strong>man</strong> — the manual page will give even more detailed guidance for a tool or command</p>
+<h2 id="these-commands-talk-about-finding-things-in-linux">These commands talk about finding things in Linux.</h2>
+<p><strong>locate</strong> — this command, followed by a keyword specifying what it is that you are looking for, will go through your entire filesystem and return every occurrence of that word.</p>
+<p><strong>whereis</strong> — this command is used to find the location of a binary file, as well as its source and man page if they are available.</p>
+<p><strong>which</strong> — only returns the location of binaries within the PATH variable, which is what the operating system uses to determine what directories to look for the commands you execute at the command line.</p>
+<p><strong>find</strong> — the most powerful search tool; allows you to specify a directory and several other parameters such as date of creation or modification, the owner, the group, permissions and the size.</p>
+<p><strong>grep</strong> — can be used as a filter to search for keywords. It is often used when output is piped from one command to another.</p>
+
+		</section>
+
+		<div class="post-tags">
+			
+			
+			<nav class="nav tags">
+				<ul class="tags">
+					
+					<li><a href="/tags/blue-team">Blue Team</a></li>
+					
+					<li><a href="/tags/linux">Linux</a></li>
+					
+					<li><a href="/tags/notes">Notes</a></li>
+					
+				</ul>
+			</nav>
+			
+			
+		</div>
+		</article>
+</main>
+<footer>
+  <div style="display:flex"></div>
+  <div class="footer-info">
+    2024  <a
+      href="https://github.com/athul/archie">Archie Theme</a> | Built with <a href="https://gohugo.io">Hugo</a>
+  </div>
+</footer>
+
+
+</div>
+    </body>
+</html>
