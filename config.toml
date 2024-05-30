@@ -1,5 +1,5 @@
 baseURL = '/'
 languageCode = 'en-us'
-title = "Jamikal Hall - Blue Teamer"
-theme = 'paper'
-color = 'light'
+title = "Jamikal Hall's Tech Blog"
+theme = 'archie'
+color = 'dark'
