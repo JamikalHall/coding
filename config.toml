@@ -1,5 +1,25 @@
 baseURL = '/'
 languageCode = 'en-us'
-title = "Jamikal Hall - Blue Teamer"
+title = "Jamikal Hall"
 theme = 'archie'
 color = 'dark'
+
+[[menu.main]]
+name = "Home"
+url = "/"
+weight = 1
+
+[[menu.main]]
+name = "All posts"
+url = "/posts"
+weight = 2
+
+[[menu.main]]
+name = "About"
+url = "/about"
+weight = 3
+
+[[menu.main]]
+name = "Tags"
+url = "/tags"
+weight = 4
