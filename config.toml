@@ -1,4 +1,5 @@
 baseURL = 'https://jamikal.xyz'
+relativeURLs = "True"
 languageCode = 'en-us'
 title = "Jamikal Hall"
 theme = 'archie'
