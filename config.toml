@@ -3,8 +3,9 @@ relativeURLs = "True"
 languageCode = 'en-us'
 title = "Jamikal Hall"
 theme = 'archie'
+
 [params]
-    mode = "auto"
+    mode = "toggle"
 
 [[menu.main]]
 name = "Home"
