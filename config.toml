@@ -5,7 +5,8 @@ title = "Jamikal Hall"
 theme = 'archie'
 
 [params]
-    mode = "toggle"
+    mode = "dark"
+    subtitle = "My tech blog AKA where the magic happens!"
 
 [[menu.main]]
 name = "Home"
