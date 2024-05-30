@@ -1,8 +1,9 @@
-baseURL = '/'
+baseURL = 'https://jamikal.xyz'
 languageCode = 'en-us'
 title = "Jamikal Hall"
 theme = 'archie'
-color = 'dark'
+[params]
+    mode = "auto"
 
 [[menu.main]]
 name = "Home"
@@ -13,11 +14,6 @@ weight = 1
 name = "All posts"
 url = "/posts"
 weight = 2
-
-[[menu.main]]
-name = "About"
-url = "/about"
-weight = 3
 
 [[menu.main]]
 name = "Tags"
